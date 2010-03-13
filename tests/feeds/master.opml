@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<opml>
+  <head>
+    <title>Master Template</title>
+  </head>
+  <body>
+          <outline text="Master Glance" type="glance_feed" xmlUrl="http://localhost:8888/youthagora/templates/master/?q=master/xml"/>
+          <outline text="Master Glance Details" type="glance_details_feed" xmlUrl="http://localhost:8888/youthagora/templates/master/?q=master_details/xml"/>
+          <outline text="Master Stories" type="story_feed" xmlUrl="http://localhost:8888/youthagora/templates/master/?q=stories/xml"/>
+          <outline text="Master News" type="news_feed" xmlUrl="http://localhost:8888/youthagora/templates/master/?q=news/feed"/>
+          <outline text="Master Partners" type="partner_feed" xmlUrl="http://localhost:8888/youthagora/templates/master/?q=partners/xml"/>
+      </body>
+</opml>
