@@ -20,6 +20,41 @@ function _ec_masters_feeds_importer_default() {
   $feeds_importer = new stdClass;
   $feeds_importer->disabled = FALSE; /* Edit this to true to make a default feeds_importer disabled initially */
   $feeds_importer->api_version = 1;
+  $feeds_importer->id = 'ignore';
+  $feeds_importer->config = array(
+    'name' => 'Ignore',
+    'description' => 'A feed that should be ignored.',
+    'fetcher' => array(
+      'plugin_key' => 'FeedsHTTPFetcher',
+      'config' => array(
+        'use_pubsubhubbub' => FALSE,
+        'designated_hub' => '',
+      ),
+    ),
+    'parser' => array(
+      'plugin_key' => 'FeedsSyndicationParser',
+      'config' => array(),
+    ),
+    'processor' => array(
+      'plugin_key' => 'FeedsNodeProcessor',
+      'config' => array(
+        'content_type' => 'story',
+        'update_existing' => 0,
+        'expire' => -1,
+        'mappings' => array(),
+      ),
+    ),
+    'content_type' => 'ignore_feed',
+    'update' => 0,
+    'import_period' => '-1',
+    'expire_period' => 3600,
+    'import_on_create' => 0,
+  );
+
+  $export['ignore'] = $feeds_importer;
+  $feeds_importer = new stdClass;
+  $feeds_importer->disabled = FALSE; /* Edit this to true to make a default feeds_importer disabled initially */
+  $feeds_importer->api_version = 1;
   $feeds_importer->id = 'master';
   $feeds_importer->config = array(
     'name' => 'Master',
@@ -38,7 +73,7 @@ function _ec_masters_feeds_importer_default() {
     'processor' => array(
       'plugin_key' => 'FeedsMultiFeedNodeProcessor',
       'config' => array(
-        'content_type' => 'news_feed',
+        'content_type' => 'ignore_feed',
         'update_existing' => 1,
         'expire' => '-1',
         'mappings' => array(
