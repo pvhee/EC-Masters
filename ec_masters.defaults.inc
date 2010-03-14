@@ -38,7 +38,7 @@ function _ec_masters_feeds_importer_default() {
     'processor' => array(
       'plugin_key' => 'FeedsMultiFeedNodeProcessor',
       'config' => array(
-        'content_type' => 'feed',
+        'content_type' => 'news_feed',
         'update_existing' => 1,
         'expire' => '-1',
         'mappings' => array(
