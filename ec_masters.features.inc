@@ -26,3 +26,12 @@ function ec_masters_node_info() {
   $args = func_get_args();
   return call_user_func_array('_ec_masters_node_info', $args);
 }
+
+/**
+ * Implementation of hook_strongarm().
+ */
+function ec_masters_strongarm() {
+  module_load_include('inc', 'ec_masters', 'ec_masters.defaults');
+  $args = func_get_args();
+  return call_user_func_array('_ec_masters_strongarm', $args);
+}

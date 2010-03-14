@@ -10,6 +10,9 @@ function _ec_masters_ctools_plugin_api() {
   if ($module == "feeds" && $api == "feeds_importer_default") {
     return array("version" => 1);
   }
+  else if ($module == "system" && $api == "strongarm") {
+    return array("version" => 1);
+  }
 }
 
 /**
@@ -103,5 +106,37 @@ function _ec_masters_feeds_importer_default() {
   );
 
   $export['master'] = $feeds_importer;
+  return $export;
+}
+
+/**
+ * Helper to implementation of hook_strongarm().
+ */
+function _ec_masters_strongarm() {
+  $export = array();
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'comment_master';
+  $strongarm->value = '0';
+
+  $export['comment_master'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'node_options_master';
+  $strongarm->value = array(
+    '0' => 'status',
+    '1' => 'promote',
+  );
+
+  $export['node_options_master'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_master_pattern';
+  $strongarm->value = 'master/[nid]';
+
+  $export['pathauto_node_master_pattern'] = $strongarm;
   return $export;
 }
