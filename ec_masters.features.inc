@@ -28,10 +28,19 @@ function ec_masters_node_info() {
 }
 
 /**
- * Implementation of hook_strongarm().
+ * Implementation of hook_openlayers_presets().
  */
-function ec_masters_strongarm() {
+function ec_masters_openlayers_presets() {
   module_load_include('inc', 'ec_masters', 'ec_masters.defaults');
   $args = func_get_args();
-  return call_user_func_array('_ec_masters_strongarm', $args);
+  return call_user_func_array('_ec_masters_openlayers_presets', $args);
+}
+
+/**
+ * Implementation of hook_views_default_views().
+ */
+function ec_masters_views_default_views() {
+  module_load_include('inc', 'ec_masters', 'ec_masters.features.views');
+  $args = func_get_args();
+  return call_user_func_array('_ec_masters_views_default_views', $args);
 }

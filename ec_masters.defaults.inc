@@ -10,7 +10,10 @@ function _ec_masters_ctools_plugin_api() {
   if ($module == "feeds" && $api == "feeds_importer_default") {
     return array("version" => 1);
   }
-  else if ($module == "system" && $api == "strongarm") {
+  else if ($module == "openlayers" && $api == "openlayers_presets") {
+    return array("version" => 1);
+  }
+  else if ($module == "strongarm" && $api == "strongarm") {
     return array("version" => 1);
   }
 }
@@ -110,33 +113,60 @@ function _ec_masters_feeds_importer_default() {
 }
 
 /**
- * Helper to implementation of hook_strongarm().
+ * Helper to implementation of hook_openlayers_presets().
  */
-function _ec_masters_strongarm() {
+function _ec_masters_openlayers_presets() {
   $export = array();
-  $strongarm = new stdClass;
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'comment_master';
-  $strongarm->value = '0';
-
-  $export['comment_master'] = $strongarm;
-  $strongarm = new stdClass;
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'node_options_master';
-  $strongarm->value = array(
-    '0' => 'status',
-    '1' => 'promote',
+  $openlayers_presets = new stdClass;
+  $openlayers_presets->disabled = FALSE; /* Edit this to true to make a default openlayers_presets disabled initially */
+  $openlayers_presets->api_version = 1;
+  $openlayers_presets->name = 'master_map';
+  $openlayers_presets->title = 'Master Map';
+  $openlayers_presets->description = 'Master map showing the partners linked to their masters';
+  $openlayers_presets->data = array(
+    'width' => 'auto',
+    'height' => '400px',
+    'image_path' => '',
+    'css_path' => '',
+    'proxy_host' => '',
+    'center' => array(
+      'initial' => array(
+        'centerpoint' => '16.699218749333, 58.077876266337',
+        'zoom' => '3',
+      ),
+      'restrict' => array(
+        'restrictextent' => 0,
+        'restrictedExtent' => '',
+      ),
+    ),
+    'behaviors' => array(
+      'openlayers_behavior_attribution' => array(),
+      'openlayers_behavior_popup' => array(),
+      'openlayers_behavior_tooltip' => array(),
+      'openlayers_behavior_keyboarddefaults' => array(),
+      'openlayers_behavior_layerswitcher' => array(),
+      'openlayers_behavior_navigation' => array(),
+      'openlayers_behavior_panzoombar' => array(),
+    ),
+    'default_layer' => 'google_physical',
+    'layers' => array(
+      'google_physical' => 'google_physical',
+      'masters_map_openlayers_1' => 'masters_map_openlayers_1',
+    ),
+    'layer_styles' => array(),
+    'layer_activated' => array(
+      'masters_map_openlayers_1' => 'masters_map_openlayers_1',
+    ),
+    'projection' => '900913',
+    'displayProjection' => '4326',
+    'styles' => array(
+      'default' => 'default',
+      'select' => 'default',
+      'temporary' => 'default',
+    ),
+    'options' => NULL,
   );
 
-  $export['node_options_master'] = $strongarm;
-  $strongarm = new stdClass;
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'pathauto_node_master_pattern';
-  $strongarm->value = 'master/[nid]';
-
-  $export['pathauto_node_master_pattern'] = $strongarm;
+  $export['master_map'] = $openlayers_presets;
   return $export;
 }
