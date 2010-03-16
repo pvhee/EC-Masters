@@ -109,6 +109,51 @@ function _ec_masters_feeds_importer_default() {
   );
 
   $export['master'] = $feeds_importer;
+  $feeds_importer = new stdClass;
+  $feeds_importer->disabled = FALSE; /* Edit this to true to make a default feeds_importer disabled initially */
+  $feeds_importer->api_version = 1;
+  $feeds_importer->id = 'master_list';
+  $feeds_importer->config = array(
+    'name' => 'Master List',
+    'description' => 'Import a CSV list of masters with their OPML address',
+    'fetcher' => array(
+      'plugin_key' => 'FeedsFileFetcher',
+      'config' => array(),
+    ),
+    'parser' => array(
+      'plugin_key' => 'FeedsCSVParser',
+      'config' => array(
+        'delimiter' => ',',
+      ),
+    ),
+    'processor' => array(
+      'plugin_key' => 'FeedsFeedNodeProcessor',
+      'config' => array(
+        'content_type' => 'master',
+        'update_existing' => 0,
+        'expire' => '-1',
+        'mappings' => array(
+          '0' => array(
+            'source' => 'title',
+            'target' => 'title',
+            'unique' => FALSE,
+          ),
+          '1' => array(
+            'source' => 'url',
+            'target' => 'url',
+            'unique' => 1,
+          ),
+        ),
+      ),
+    ),
+    'content_type' => '',
+    'update' => 0,
+    'import_period' => '-1',
+    'expire_period' => 3600,
+    'import_on_create' => 1,
+  );
+
+  $export['master_list'] = $feeds_importer;
   return $export;
 }
 
