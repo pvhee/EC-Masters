@@ -1,13 +1,71 @@
 <?php
 
 /**
+ * Helper to implementation of hook_context_default_contexts().
+ */
+function _ec_masters_context_default_contexts() {
+  $export = array();
+  $context = new stdClass;
+  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
+  $context->api_version = 3;
+  $context->name = 'master_complete';
+  $context->description = 'The complete page for a single master.';
+  $context->tag = '';
+  $context->conditions = array(
+    'node' => array(
+      'values' => array(
+        'master' => 'master',
+      ),
+      'options' => array(
+        'node_form' => 1,
+      ),
+    ),
+  );
+  $context->reactions = array(
+    'block' => array(
+      'blocks' => array(
+        'views-glance_complete-block_1' => array(
+          'module' => 'views',
+          'delta' => 'glance_complete-block_1',
+          'region' => 'content',
+          'weight' => 0,
+        ),
+        'views-partners_complete-block_1' => array(
+          'module' => 'views',
+          'delta' => 'partners_complete-block_1',
+          'region' => 'content',
+          'weight' => 1,
+        ),
+        'views-stories_complete-block_1' => array(
+          'module' => 'views',
+          'delta' => 'stories_complete-block_1',
+          'region' => 'content',
+          'weight' => 2,
+        ),
+      ),
+    ),
+  );
+  $context->condition_mode = 0;
+
+  $translatables['master_complete'] = array(
+    t('The complete page for a single master.'),
+  );
+
+  $export['master_complete'] = $context;
+  return $export;
+}
+
+/**
  * Helper to implementation of hook_ctools_plugin_api().
  */
 function _ec_masters_ctools_plugin_api() {
   $args = func_get_args();
   $module = array_shift($args);
   $api = array_shift($args);
-  if ($module == "feeds" && $api == "feeds_importer_default") {
+  if ($module == "context" && $api == "context") {
+    return array("version" => 3);
+  }
+  else if ($module == "feeds" && $api == "feeds_importer_default") {
     return array("version" => 1);
   }
   else if ($module == "openlayers" && $api == "openlayers_presets") {
